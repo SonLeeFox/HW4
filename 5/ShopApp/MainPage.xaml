@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ShopApp"
+             x:Class="ShopApp.MainPage">
+
+    <Grid RowDefinitions="*,Auto" Padding="20" RowSpacing="15">
+
+        <Grid Grid.Row="0" RowDefinitions="Auto,*" RowSpacing="8">
+
+            <Grid Grid.Row="0" ColumnDefinitions="90,150,90,120,130,*,320" ColumnSpacing="10">
+                <Label Grid.Column="0" Text="Тип" FontAttributes="Bold" />
+                <Label Grid.Column="1" Text="Назва" FontAttributes="Bold" />
+                <Label Grid.Column="2" Text="Ціна, грн" FontAttributes="Bold" />
+                <Label Grid.Column="3" Text="Країна" FontAttributes="Bold" />
+                <Label Grid.Column="4" Text="Дата пакування" FontAttributes="Bold" />
+                <Label Grid.Column="5" Text="Опис" FontAttributes="Bold" />
+                <Label Grid.Column="6" Text="Додатково" FontAttributes="Bold" />
+            </Grid>
+
+            <CollectionView Grid.Row="1" x:Name="ProductsView" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Product">
+                        <Grid ColumnDefinitions="90,150,90,120,130,*,320" ColumnSpacing="10" Padding="0,6">
+                            <Label Grid.Column="0" Text="{Binding Kind}" />
+                            <Label Grid.Column="1" Text="{Binding Name}" />
+                            <Label Grid.Column="2" Text="{Binding Price, StringFormat='{0:F2}'}" />
+                            <Label Grid.Column="3" Text="{Binding Country}" />
+                            <Label Grid.Column="4" Text="{Binding PackingDate, StringFormat='{0:dd.MM.yyyy}'}" />
+                            <Label Grid.Column="5" Text="{Binding Description}" />
+                            <Label Grid.Column="6" Text="{Binding Details}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1" Spacing="10">
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Picker Grid.Column="0" x:Name="TypePicker" Title="Тип" SelectedIndexChanged="OnTypeChanged" />
+                <Entry Grid.Column="1" x:Name="NameEntry" Placeholder="Назва" />
+                <Entry Grid.Column="2" x:Name="PriceEntry" Placeholder="Ціна, грн" />
+                <Entry Grid.Column="3" x:Name="CountryEntry" Placeholder="Країна походження" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="Дата пакування" FontSize="12" />
+                    <DatePicker x:Name="PackingDatePicker" />
+                </VerticalStackLayout>
+                <Entry Grid.Column="1" Grid.ColumnSpan="3" x:Name="DescriptionEntry" Placeholder="Опис" VerticalOptions="End" />
+            </Grid>
+
+            <Grid x:Name="FoodFields" ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Entry Grid.Column="0" x:Name="ShelfLifeEntry" Placeholder="Термін придатності, днів" />
+                <Entry Grid.Column="1" x:Name="QuantityEntry" Placeholder="Кількість" />
+                <Entry Grid.Column="2" x:Name="UnitEntry" Placeholder="Одиниця виміру" />
+            </Grid>
+
+            <Grid x:Name="BookFields" ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Entry Grid.Column="0" x:Name="PagesEntry" Placeholder="Кількість сторінок" />
+                <Entry Grid.Column="1" x:Name="PublisherEntry" Placeholder="Видавництво" />
+                <Entry Grid.Column="2" Grid.ColumnSpan="2" x:Name="AuthorsEntry" Placeholder="Автори (через кому)" />
+            </Grid>
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Додати" Clicked="OnAddClicked" />
+                <Button Text="Видалити виділений" Clicked="OnDeleteClicked" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>
